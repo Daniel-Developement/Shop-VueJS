@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Curso VueJS</title>
+</head>
+
+<body>
+    <div id="app">
+        <div :style="styles">
+            <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">{{ fullName }}</a>
+                    <button @click="toggleTheme" class="btn text-white shadow-0 border-0">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </button>
+                </div>
+            </nav>
+            <h1 class="text-center">{{ title }}</h1>
+            <p class="text-center">Produtos</p>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" v-for="product in products" :key="product.id">
+                        <div class="card">
+                            <h3 class="text-center">{{ product.name }}</h3>
+                            <img :src="product.image" alt="product.title">
+                            <button href="#" class="btn btn-success" v-on:click.prevent="addCart(product)"
+                                :disabled="inCart(product)" :class="{'button-disabled' : inCart(product)}">
+                                Add cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h1 class="text-center">Carrinho ({{ cart.length }})</h1>
+            <div class="container">
+                <div class="table-response">
+                    <table class="table">
+                        <thead>
+                            <tr class="border">
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="product in cart" :key="product.id">
+                                <th>{{product.id}}</th>
+                                <th>{{product.name}}</th>
+                                <th>{{product.description}}</th>
+                                <th>
+                                    <button href="#" class="btn btn-danger" @click.prevent="removeCart(product)"
+                                        v-if="inCart(product)">
+                                        Remove cart
+                                    </button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="/assets/js/fontawesome.js"></script>
+    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/app.js"></script>
+</body>
+
+</html>
